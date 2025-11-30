@@ -22,11 +22,18 @@ export interface IAsyncTape {
     play: boolean // starts playing the animation only if the play is true
     loadText: string // like for example  ... ... ...
 }
+
+// displays basic idea about how ai reply is been coded
+// yeah this is my world of playing 
 export default function chatHook(): IChatHook {
 
+    // i dont think i need to explain what these variables are
     const [curStatus, setStatus] = useState<string>("")
     const [gotMsg, setMsg] = useState<string[]>([])
     const [err, setErr] = useState<boolean>(false)
+    // panic if you ever done Go than yes you are thinking in a right way
+    // if you havent done go
+    // this is bsaiclly a error trigger if caught any
     const [panic, setPanic] = useState<string>("")
     const [recMsg, setRecMsg] = useState<boolean>(false)
     const [conStatus, setConStatus] = useState<boolean>(false)
@@ -36,6 +43,7 @@ export default function chatHook(): IChatHook {
     const ws = useRef<WebSocket | null>(null)
     const sub = useRef<Subscription | null>(null)
 
+    // and my frands this is how clean you can implement the websocket 
     useEffect(() => {
         const url = "ws://localhost:8080/ws"
 
@@ -57,10 +65,22 @@ export default function chatHook(): IChatHook {
                 sub.current = null
             }
 
+            // this is how the magic begans
             const reply = token.data
+            // do you know what i did here
+            // i just implemented the for loop
+            // within time
+            // this is one of the tecnhqiue you learn by doing it agani and again
             let $i = 0
             // imp else it wont work
+            // why it is imp becuaes on render it consider null
+            // on second click fuck happens
+            // on third click fuck happens
+            // on double click stuff happens
+            // doing this way output happens
             setMsg(old => [...old, "Server: "])
+
+            // do angular if you wish to learn rxjs
             const stream = interval(50).pipe(takeWhile(() => $i < reply.length),
 
                 tap(() => {
@@ -68,7 +88,7 @@ export default function chatHook(): IChatHook {
 
                     // updating ... 😄
                     setMsg(old => {
-
+                        // this is dope btw trust me this is ridiculas
                         const ua: string[] = [...old]
                         const pointer = ua.length - 1;
                         ua[pointer] += char

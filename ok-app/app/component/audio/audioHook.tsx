@@ -1,5 +1,8 @@
 'use client';
 import { RefObject, useEffect, useRef, useState } from "react"
+// kudos to mdn for implementing the audio demo
+// i just rewrite the code of mdn in react
+// the only difference is that i added the listen to audio option
 
 interface IAudioHoook {
     stop: () => void
@@ -12,7 +15,7 @@ interface IAudioHoook {
 export default function audioHook(): IAudioHoook {
     const [record, setRecord] = useState(false)
     const recorder = useRef<MediaRecorder | null>(null)
-    const [url, setUrl] = useState('')
+    const [url, setUrl] = useState('') // imp in order to listen
     const canvas = useRef<HTMLCanvasElement | null>(null)
     var chunk = useRef<Blob[]>([])
     const audioContext = useRef<AudioContext | null>(null)
@@ -22,7 +25,7 @@ export default function audioHook(): IAudioHoook {
     const animationId = useRef<number>(0)
 
     useEffect(() => {
-
+        // i dont shit what this is i just implemented 😉
         navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
 
             audioContext.current = new AudioContext()
@@ -39,17 +42,32 @@ export default function audioHook(): IAudioHoook {
                 if (ev.data.size > 0)
                     chunk.current.push(ev.data)
             }
+
+            // i only this part becuase in go i implemented image so shit went crazy for 2h in Go
+            // what this is basiclly is that creating a url its same as doing static file stuff
+            // this is my analogy of thinking 😅
             _recorder.onstop = () => {
                 let chunks = new Blob(chunk.current, { type: 'audio/webm' })
                 const u = URL.createObjectURL(chunks)
                 setUrl(u)
                 chunk.current = []  // imp: empty the chunk 
-                cancelAnimationFrame(animationId.current)
+                cancelAnimationFrame(animationId.current) // i still have no idea 
             }
         })
 
     }, [])
 
+    // i am not good at canvas its just copy and paste from mdn and did some changes here
+    // so my bad cant explain you what this is
+    // but i can explain you the basic
+    // the width and height must be implementd as each canvas
+    // i dont know shit about animationId
+    // the canvasCtx is bascially like lets say you opening either blender or photoshop
+    // make sure to set the canvas pen as per the body
+    // stokeStyle: if you ever ever used ms word and created shapes and edited bunch of stuff
+    //             you would find the outline stuff and that's bsacilly stokeStyle
+    // dont worry if you haevnt dont this
+    // this is bsaiclly a pint point just like a ball pen
     var draw = () => {
         if (!analyser.current || !canvas.current || !dataArray.current) return
         const canvasCtx = canvas.current.getContext("2d")
@@ -90,6 +108,7 @@ export default function audioHook(): IAudioHoook {
         canvasCtx.stroke()
     }
 
+    // pro tip always use disable items outside the hooks if you triggering events with buttons
     const onStart = () => {
         if (!record && recorder.current) {
             chunk.current = []
@@ -98,6 +117,7 @@ export default function audioHook(): IAudioHoook {
             draw()
         }
     }
+    // if you wont stop you wont able to hear it 😅
     const onStop = () => {
         if (record && recorder.current) {
             recorder.current.stop()

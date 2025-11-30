@@ -5,6 +5,8 @@ import { IAsyncTape, Inputs } from "./chatHook";
 import chatHook from "./chatHook";
 import { interval, takeWhile } from "rxjs";
 import './touchup/animation.scss'
+
+
 export default function Chatting() {
     const {
         register,

@@ -1,7 +1,5 @@
 'use client'
-import { KonvaNodeEvent } from "konva/lib/types"
 import { useEffect, useRef, useState } from "react"
-import { Layer, Stage, Text, Rect, Circle } from "react-konva"
 import audioHook from "./audioHook"
 
 export default function VoiceChat() {
