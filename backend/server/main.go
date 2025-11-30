@@ -68,7 +68,7 @@ func runHub() {
 }
 
 const (
-	APIKey = "AIzaSyAzmPXcOjSjCndUqeEqS7rFhx8mTgofpwY"
+	APIKey = "" // your api key
 )
 
 var (
